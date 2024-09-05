@@ -1,0 +1,166 @@
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+            rel="stylesheet"
+            as="style"
+            onload="this.rel='stylesheet'"
+            href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Public+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Galileo Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body>
+<div class="relative flex size-full min-h-screen flex-col bg-[#111518] dark group/design-root overflow-x-hidden" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+    <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#283139] px-10 py-3">
+            <div class="flex items-center gap-4 text-white">
+                <div class="size-4">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                                d="M4 42.4379C4 42.4379 14.0962 36.0744 24 41.1692C35.0664 46.8624 44 42.2078 44 42.2078L44 7.01134C44 7.01134 35.068 11.6577 24.0031 5.96913C14.0971 0.876274 4 7.27094 4 7.27094L4 42.4379Z"
+                                fill="currentColor"
+                        ></path>
+                    </svg>
+                </div>
+                <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">WordWise</h2>
+            </div>
+            <div class="flex gap-2">
+                <button
+                        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#283139] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
+                >
+                    <div class="text-white" data-icon="Sun" data-size="20px" data-weight="regular">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                            <path
+                                    d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"
+                            ></path>
+                        </svg>
+                    </div>
+                </button>
+                <button
+                        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#283139] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
+                >
+                    <div class="text-white" data-icon="Moon" data-size="20px" data-weight="regular">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                            <path
+                                    d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"
+                            ></path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+            <div class="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
+                <h1 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-center pb-3 pt-5">Add a new word</h1>
+                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                    <label class="flex flex-col min-w-40 flex-1">
+                        <input
+                                placeholder="Enter word"
+                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#283139] focus:border-none h-14 placeholder:text-[#9cacba] p-4 text-base font-normal leading-normal"
+                                value=""
+                        />
+                    </label>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Meanings</h3>
+                <div class="flex gap-4 bg-[#111518] px-4 py-3">
+                    <div class="text-white flex items-center justify-center rounded-lg bg-[#283139] shrink-0 size-12" data-icon="Plus" data-size="24px" data-weight="regular">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex flex-1 flex-col justify-center">
+                        <p class="text-white text-base font-medium leading-normal">Facilitation</p>
+                        <p class="text-[#9cacba] text-sm font-normal leading-normal">The act of making something easier or simpler or more pleasant.</p>
+                        <p class="text-[#9cacba] text-sm font-normal leading-normal">Noun</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 bg-[#111518] px-4 py-3">
+                    <div class="text-white flex items-center justify-center rounded-lg bg-[#283139] shrink-0 size-12" data-icon="Plus" data-size="24px" data-weight="regular">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex flex-1 flex-col justify-center">
+                        <p class="text-white text-base font-medium leading-normal">Stewardess</p>
+                        <p class="text-[#9cacba] text-sm font-normal leading-normal">A person who is employed to look after the passengers on a ship, aircraft, or train.</p>
+                        <p class="text-[#9cacba] text-sm font-normal leading-normal">Noun</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 bg-[#111518] px-4 py-3">
+                    <div class="text-white flex items-center justify-center rounded-lg bg-[#283139] shrink-0 size-12" data-icon="Plus" data-size="24px" data-weight="regular">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex flex-1 flex-col justify-center">
+                        <p class="text-white text-base font-medium leading-normal">Invest</p>
+                        <p class="text-[#9cacba] text-sm font-normal leading-normal">To give money to a company in exchange for a share of its ownership.</p>
+                        <p class="text-[#9cacba] text-sm font-normal leading-normal">Verb</p>
+                    </div>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Tags</h3>
+                <div class="flex gap-3 p-3 flex-wrap pr-4">
+                    <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#283139] pl-4 pr-4">
+                        <p class="text-white text-sm font-medium leading-normal">formal</p>
+                    </div>
+                    <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#283139] pl-4 pr-4">
+                        <p class="text-white text-sm font-medium leading-normal">business</p>
+                    </div>
+                    <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#283139] pl-4 pr-4">
+                        <p class="text-white text-sm font-medium leading-normal">aviation</p>
+                    </div>
+                    <div class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-[#283139] pl-4 pr-4">
+                        <p class="text-white text-sm font-medium leading-normal">finance</p>
+                    </div>
+                </div>
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Examples</h3>
+                <div class="flex items-center gap-4 bg-[#111518] px-4 min-h-[72px] py-2">
+                    <div class="text-white flex items-center justify-center rounded-lg bg-[#283139] shrink-0 size-12" data-icon="Plus" data-size="24px" data-weight="regular">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <p class="text-white text-base font-medium leading-normal line-clamp-1">Facilitation</p>
+                        <p class="text-[#9cacba] text-sm font-normal leading-normal line-clamp-2">The facilitation of international trade</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 bg-[#111518] px-4 min-h-[72px] py-2">
+                    <div class="text-white flex items-center justify-center rounded-lg bg-[#283139] shrink-0 size-12" data-icon="Plus" data-size="24px" data-weight="regular">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <p class="text-white text-base font-medium leading-normal line-clamp-1">Stewardess</p>
+                        <p class="text-[#9cacba] text-sm font-normal leading-normal line-clamp-2">She worked as a stewardess on an ocean liner</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 bg-[#111518] px-4 min-h-[72px] py-2">
+                    <div class="text-white flex items-center justify-center rounded-lg bg-[#283139] shrink-0 size-12" data-icon="Plus" data-size="24px" data-weight="regular">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <p class="text-white text-base font-medium leading-normal line-clamp-1">Invest</p>
+                        <p class="text-[#9cacba] text-sm font-normal leading-normal line-clamp-2">The company is seeking investors for its new restaurant</p>
+                    </div>
+                </div>
+                <div class="flex px-4 py-3">
+                    <button
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 flex-1 bg-[#2094f3] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+                    >
+                        <span class="truncate">Submit</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
