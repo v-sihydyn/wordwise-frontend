@@ -16,7 +16,7 @@ export default function Home() {
             <CardContent>
               <div className="grid grid-cols-3 gap-3">
                 {folders.map((f, i) => (
-                  <Link key={i} href={`#`} className="flex justify-start gap-3 rounded-xl bg-[#283139] p-6 pl-4 pr-4">
+                  <Link key={i} href={`#`} className="flex justify-start gap-3 rounded-xl bg-secondary p-6 pl-4 pr-4">
                     <Folder />
                     <p className="text-lg font-medium leading-normal text-white">{f.name}</p>
                   </Link>
@@ -34,8 +34,8 @@ export default function Home() {
                 {alphabet.map((l) => (
                   <Link
                     key={l}
-                    href={`/words/${l}`}
-                    className="flex shrink-0 items-center justify-center rounded-xl bg-[#283139] p-6 pl-4 pr-4"
+                    href={`/lexemes/${l}`}
+                    className="flex shrink-0 items-center justify-center rounded-xl bg-secondary p-6 pl-4 pr-4"
                   >
                     <p className="text-lg font-medium leading-normal text-white">{l}</p>
                   </Link>
