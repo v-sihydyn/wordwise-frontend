@@ -4,8 +4,8 @@ import { Header } from '@/components/Header/Header';
 export default function Page() {
   return (
     <BasePageTemplate header={<Header />}>
-      <div className="flex flex-1 justify-center px-40 py-5">
-        <div className="layout-content-container flex max-w-[960px] flex-1 flex-col">
+      <div className="container mx-auto flex flex-1 justify-center">
+        <div className="layout-content-container flex flex-1 flex-col">
           <h2 className="px-4 pb-3 pt-5 text-[22px] font-bold leading-tight tracking-[-0.015em] text-white">
             My words
           </h2>
