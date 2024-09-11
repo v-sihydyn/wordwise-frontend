@@ -1,3 +1,5 @@
+import { LogoutButton } from '@/components/LogoutButton/LogoutButton';
+
 export const Header = () => {
   return (
     <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#283139] px-10 py-3">
@@ -87,6 +89,7 @@ export const Header = () => {
             backgroundImage: 'url("https://cdn.usegalileo.ai/stability/86480509-1893-47b2-b666-3c71bb41b48f.png")',
           }}
         ></div>
+        <LogoutButton />
       </div>
     </header>
   );
