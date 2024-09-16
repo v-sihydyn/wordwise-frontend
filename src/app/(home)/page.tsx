@@ -3,8 +3,43 @@ import { Header } from '@/components/Header/Header';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Folder } from 'lucide-react';
+import { getStrapiURL } from '@/lib/utils';
+import { getAuthToken } from '@/services/get-token';
+import qs from 'qs';
 
-export default function Home() {
+const query = qs.stringify({
+  // populate: { meanings: { fields: ['text'] }, user: { fields: ['id'] } },
+  populate: '*',
+  // pagination: { page: 1 },
+});
+
+const fetchData = async () => {
+  try {
+    const baseUrl = getStrapiURL();
+    const authToken = await getAuthToken();
+
+    const url = new URL('/api/demos', baseUrl);
+    url.search = query;
+    console.log({ url });
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+      cache: 'no-cache',
+    });
+
+    const data = await response.json();
+    console.log('res', JSON.stringify(data.data, null, 2));
+  } catch (err) {
+    console.error('Failed to fetch data: ', err);
+  }
+};
+
+export default async function Home() {
+  await fetchData();
+
   return (
     <BasePageTemplate header={<Header />}>
       <div className="container mx-auto flex flex-1 justify-center p-6">
