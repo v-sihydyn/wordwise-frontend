@@ -1,18 +1,26 @@
+'use server';
 import { getAuthToken } from '@/services/get-token';
 
-export async function fetchData<T>(url: string) {
+export async function fetchData<T>(url: string, nextOptions?: NextFetchRequestConfig) {
   const authToken = await getAuthToken();
 
-  const headers = {
+  const options: RequestInit = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${authToken}`,
     },
   };
 
+  if (authToken) {
+    options.headers['Authorization'] = `Bearer ${authToken}`;
+  }
+
+  if (nextOptions) {
+    options.next = nextOptions;
+  }
+
   try {
-    const response = await fetch(url, authToken ? headers : {});
+    const response = await fetch(url, options);
     const data = (await response.json()) as T;
 
     return data;

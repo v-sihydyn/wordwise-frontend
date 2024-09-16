@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Folder } from 'lucide-react';
 import { fetchFolders } from '@/app/(private)/api';
+import { CreateFolderButton } from '@/app/(private)/_components/CreateFolderButton';
 
 export default async function Home() {
   const foldersData = await fetchFolders();
@@ -14,8 +15,9 @@ export default async function Home() {
       <div className="container mx-auto flex flex-1 justify-center p-6">
         <div className="layout-content-container flex flex-1 flex-col gap-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex-row justify-between gap-2">
               <CardTitle className="text-xl">Folders</CardTitle>
+              <CreateFolderButton />
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-3">

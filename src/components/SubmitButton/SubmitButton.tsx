@@ -1,7 +1,7 @@
 'use client';
 import { useFormStatus } from 'react-dom';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { Loader2 } from 'lucide-react';
 
 function Loader({ text }: { readonly text: string }) {

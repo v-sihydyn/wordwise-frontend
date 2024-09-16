@@ -18,7 +18,7 @@ type FromPaths<T extends { path: string; type: unknown }> = {
 
 export type Flatten<T> = FromPaths<ToPaths<T>>;
 
-export function flattenAttributes(data: any): any {
+export function flattenAttributes(data: unknown): unknown {
   // Check if data is a plain object; return as is if not
   if (typeof data !== 'object' || data === null || data instanceof Date || typeof data === 'function') {
     return data;
@@ -30,10 +30,10 @@ export function flattenAttributes(data: any): any {
   }
 
   // Initialize an object with an index signature for the flattened structure
-  let flattened: { [key: string]: any } = {};
+  const flattened: { [key: string]: unknown } = {};
 
   // Iterate over each key in the object
-  for (let key in data) {
+  for (const key of data) {
     // Skip inherited properties from the prototype chain
     if (!data.hasOwnProperty(key)) continue;
 
