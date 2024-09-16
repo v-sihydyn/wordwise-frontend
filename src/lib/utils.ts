@@ -5,6 +5,19 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+type ToPaths<T, P extends string = ''> =
+  T extends Record<string, unknown>
+    ? {
+        [K in keyof T]: K extends 'data' | 'attributes' ? ToPaths<T[K], P> : ToPaths<T[K], `${P}${K & string}.`>;
+      }[keyof T]
+    : { path: P extends `${infer P}.` ? P : never; type: T };
+
+type FromPaths<T extends { path: string; type: unknown }> = {
+  [P in T['path']]: Extract<T, { path: P }>['type'];
+};
+
+export type Flatten<T> = FromPaths<ToPaths<T>>;
+
 export function flattenAttributes(data: any): any {
   // Check if data is a plain object; return as is if not
   if (typeof data !== 'object' || data === null || data instanceof Date || typeof data === 'function') {
@@ -13,7 +26,7 @@ export function flattenAttributes(data: any): any {
 
   // If data is an array, apply flattenAttributes to each element and return as array
   if (Array.isArray(data)) {
-    return data.map((item) => flattenAttributes(item));
+    return data.map(flattenAttributes);
   }
 
   // Initialize an object with an index signature for the flattened structure
