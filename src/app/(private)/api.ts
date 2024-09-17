@@ -8,7 +8,7 @@ export const fetchFolders = async () => {
     const baseUrl = getStrapiURL();
     const url = new URL('/api/directories', baseUrl);
 
-    return await fetchData<components['schemas']['DemoListResponse']>(url.href, { tags: [fetchFoldersTag] });
+    return await fetchData<components['schemas']['DirectoryListResponse']>(url.href, { tags: [fetchFoldersTag] });
   } catch (err) {
     console.error('Failed to fetch data: ', err);
   }

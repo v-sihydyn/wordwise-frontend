@@ -43,7 +43,49 @@ export async function createFolderAction(
     }
     revalidateTag(fetchFoldersTag);
   } catch (error) {
-    console.error(error, error);
-    return { error: false };
+    console.error(error);
+    return { error: true };
+  }
+}
+
+export async function editFolderAction(
+  id: number,
+  unsafeData: z.infer<typeof folderFormSchema>
+): Promise<{ error: boolean | unknown }> {
+  const authToken = await getAuthToken();
+  const baseUrl = getStrapiURL();
+
+  if (!authToken) throw new Error('No auth token found');
+
+  const { success, data } = folderFormSchema.safeParse(unsafeData);
+
+  if (!success) {
+    return { error: true };
+  }
+
+  try {
+    const url = new URL(`/api/directories/${id}`, baseUrl);
+    const response = await fetch(url.href, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify({ data }),
+    });
+
+    if (!response.ok) {
+      const d = await response.json();
+
+      let errorMessage = 'Unexpected error editing a folder';
+      if (d.error) {
+        errorMessage = `${d.error.name}: ${d.error.message}`;
+      }
+      throw new Error(errorMessage);
+    }
+    revalidateTag(fetchFoldersTag);
+  } catch (error) {
+    console.error(error);
+    return { error: true };
   }
 }

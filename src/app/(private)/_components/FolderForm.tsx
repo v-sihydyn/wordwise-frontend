@@ -7,27 +7,25 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { DialogClose } from '@/components/ui/Dialog';
-import { createFolderAction } from '@/app/(private)/actions';
+import { createFolderAction, editFolderAction } from '@/app/(private)/actions';
+import { Folder } from '@/types/Folder';
 
 type Props = {
-  folder?: {
-    name: string;
-  };
+  folder?: Folder;
   onSuccess: () => void;
 };
 
 export const FolderForm = ({ folder, onSuccess }: Props) => {
   const form = useForm<z.infer<typeof folderFormSchema>>({
     resolver: zodResolver(folderFormSchema),
-    defaultValues: folder ?? {
-      name: '',
+    defaultValues: {
+      name: folder?.attributes?.name ?? '',
     },
   });
 
   const onSubmit = async (values: z.infer<typeof folderFormSchema>) => {
-    const action = createFolderAction;
+    const action = folder?.id ? editFolderAction.bind(null, folder.id) : createFolderAction;
     const data = await action(values);
-    console.log('onSubmit', data);
 
     if (data?.error) {
       form.setError('root', {

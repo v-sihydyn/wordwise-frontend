@@ -2,9 +2,14 @@ import { BasePageTemplate } from '@/templates/BasePageTemplate';
 import { Header } from '@/components/Header/Header';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Folder } from 'lucide-react';
 import { fetchFolders } from '@/app/(private)/api';
 import { CreateFolderButton } from '@/app/(private)/_components/CreateFolderButton';
+import { FolderListItem } from '@/app/(private)/_components/FolderListItem';
+import { FoldersList } from '@/app/(private)/_components/FoldersList';
+
+export const metadata = {
+  title: 'WordWise',
+};
 
 export default async function Home() {
   const foldersData = await fetchFolders();
@@ -20,14 +25,7 @@ export default async function Home() {
               <CreateFolderButton />
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-3 gap-3">
-                {folders.map((f, i) => (
-                  <Link key={i} href={`#`} className="flex justify-start gap-3 rounded-xl bg-secondary p-6 pl-4 pr-4">
-                    <Folder />
-                    <p className="text-lg font-medium leading-normal text-white">{f.attributes?.name}</p>
-                  </Link>
-                ))}
-              </div>
+              <FoldersList folders={folders} />
             </CardContent>
           </Card>
 

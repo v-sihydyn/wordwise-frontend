@@ -8,7 +8,7 @@ export const CreateFolderButton = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild={true} onClick={() => setOpen(true)}>
         <Button variant="outline">Create new folder</Button>
       </DialogTrigger>
