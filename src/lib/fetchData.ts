@@ -1,5 +1,6 @@
 'use server';
 import { getAuthToken } from '@/services/get-token';
+import { isDebug } from '@/config/isDebug';
 
 export async function fetchData<T>(url: string, nextOptions?: NextFetchRequestConfig) {
   const authToken = await getAuthToken();
@@ -19,13 +20,34 @@ export async function fetchData<T>(url: string, nextOptions?: NextFetchRequestCo
     options.next = nextOptions;
   }
 
-  try {
-    const response = await fetch(url, options);
-    const data = (await response.json()) as T;
-
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', JSON.stringify(error));
-    throw error; // or return null;
+  if (isDebug()) {
+    console.group(`${options.method} ${url}`);
   }
+
+  const response = await fetch(url, options);
+
+  if (!response.ok) {
+    const d = await response.json();
+
+    let errorMessage = 'Unexpected error creating a folder';
+
+    if (d.error) {
+      errorMessage = `${d.error.name}: ${d.error.message}`;
+    }
+
+    if (isDebug()) {
+      console.log(errorMessage);
+    }
+
+    throw new Error(errorMessage);
+  }
+
+  const data = await response.json();
+
+  if (isDebug()) {
+    console.log(JSON.stringify(data, null, 2));
+    console.groupEnd();
+  }
+
+  return data as T;
 }

@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:debug": "DEBUG=true next dev",
+    "dev:debug:log": "yarn dev:debug > \".logs/$(date +'%Y-%m-%d %H꞉%M꞉%S').log\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

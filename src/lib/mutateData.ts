@@ -1,5 +1,6 @@
 import { getStrapiURL } from '@/lib/utils';
 import { getAuthToken } from '@/services/get-token';
+import { isDebug } from '@/config/isDebug';
 
 export async function mutateData<T>(method: string, path: string, payload?: T) {
   const baseUrl = getStrapiURL();
@@ -8,25 +9,44 @@ export async function mutateData<T>(method: string, path: string, payload?: T) {
   if (!authToken) throw new Error('No auth token found');
 
   const url = new URL(path, baseUrl);
-  const response = await fetch(url, {
+  const options = {
     method: method,
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${authToken}`,
     },
     body: JSON.stringify(payload),
-  });
+  };
+
+  if (isDebug()) {
+    console.group(`${options.method} ${path}`);
+    console.log(JSON.stringify(payload, null, 2));
+  }
+
+  const response = await fetch(url, options);
 
   if (!response.ok) {
     const d = await response.json();
 
     let errorMessage = 'Unexpected error creating a folder';
+
     if (d.error) {
       errorMessage = `${d.error.name}: ${d.error.message}`;
     }
+
+    if (isDebug()) {
+      console.log(errorMessage);
+    }
+
     throw new Error(errorMessage);
   }
 
   const data = await response.json();
+
+  if (isDebug()) {
+    console.log(JSON.stringify(data, null, 2));
+    console.groupEnd();
+  }
+
   return data as T;
 }
