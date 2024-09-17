@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { fetchFolders } from '@/app/(private)/api';
 import { CreateFolderButton } from '@/app/(private)/_components/CreateFolderButton';
-import { FolderListItem } from '@/app/(private)/_components/FolderListItem';
 import { FoldersList } from '@/app/(private)/_components/FoldersList';
 
 export const metadata = {
   title: 'WordWise',
 };
+
+export const revalidate = 0;
 
 export default async function Home() {
   const foldersData = await fetchFolders();

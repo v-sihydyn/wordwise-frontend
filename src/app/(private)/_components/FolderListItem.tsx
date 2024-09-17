@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { Folder } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/DropdownMenu';
@@ -8,9 +6,10 @@ import { Button } from '@/components/ui/Button';
 type Props = {
   name: string;
   onTriggerEdit: () => void;
+  onTriggerDelete: () => void;
 };
 
-export const FolderListItem = ({ name, onTriggerEdit }: Props) => {
+export const FolderListItem = ({ name, onTriggerEdit, onTriggerDelete }: Props) => {
   return (
     <Link href={`#`} className="flex justify-start gap-3 rounded-xl bg-secondary p-6 pl-4 pr-4">
       <Folder className="flex-shrink-0" />
@@ -43,7 +42,7 @@ export const FolderListItem = ({ name, onTriggerEdit }: Props) => {
           <DropdownMenuItem onClick={onTriggerEdit} className="cursor-pointer">
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => alert('delete')} className="cursor-pointer text-red-800">
+          <DropdownMenuItem onClick={onTriggerDelete} className="cursor-pointer text-red-800">
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

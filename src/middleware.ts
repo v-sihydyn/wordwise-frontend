@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getUserMeLoader } from '@/services/get-user-me-loader';
 
-const PUBLIC_ROUTES = ['/signin', '/signup'];
+const PUBLIC_ROUTES = ['/sign-in', '/sign-up'];
 
 export async function middleware(request: NextRequest) {
   const user = await getUserMeLoader();
@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
 
   if (!user.ok) {
     if (!PUBLIC_ROUTES.includes(currentPath)) {
-      return NextResponse.redirect(new URL('/signin', request.url));
+      return NextResponse.redirect(new URL('/sign-in', request.url));
     }
   } else {
     if (PUBLIC_ROUTES.includes(currentPath)) {
@@ -22,5 +22,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/signin', '/signup'],
+  matcher: ['/', '/sign-in', '/sign-up'],
 };

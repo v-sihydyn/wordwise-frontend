@@ -6,15 +6,11 @@ import { getAuthToken } from '@/services/get-token';
 import { getStrapiURL } from '@/lib/utils';
 import { revalidateTag } from 'next/cache';
 import { fetchFoldersTag } from '@/app/(private)/api';
+import { mutateData } from '@/lib/mutateData';
 
 export async function createFolderAction(
   unsafeData: z.infer<typeof folderFormSchema>
-): Promise<{ error: boolean | unknown }> {
-  const authToken = await getAuthToken();
-  const baseUrl = getStrapiURL();
-
-  if (!authToken) throw new Error('No auth token found');
-
+): Promise<{ error: boolean | unknown } | void> {
   const { success, data } = folderFormSchema.safeParse(unsafeData);
 
   if (!success) {
@@ -22,25 +18,7 @@ export async function createFolderAction(
   }
 
   try {
-    const url = new URL('/api/directories', baseUrl);
-    const response = await fetch(url.href, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-      body: JSON.stringify({ data }),
-    });
-
-    if (!response.ok) {
-      const d = await response.json();
-
-      let errorMessage = 'Unexpected error creating a folder';
-      if (d.error) {
-        errorMessage = `${d.error.name}: ${d.error.message}`;
-      }
-      throw new Error(errorMessage);
-    }
+    await mutateData('POST', '/api/directories', { data });
     revalidateTag(fetchFoldersTag);
   } catch (error) {
     console.error(error);
@@ -51,12 +29,7 @@ export async function createFolderAction(
 export async function editFolderAction(
   id: number,
   unsafeData: z.infer<typeof folderFormSchema>
-): Promise<{ error: boolean | unknown }> {
-  const authToken = await getAuthToken();
-  const baseUrl = getStrapiURL();
-
-  if (!authToken) throw new Error('No auth token found');
-
+): Promise<{ error: boolean | unknown } | void> {
   const { success, data } = folderFormSchema.safeParse(unsafeData);
 
   if (!success) {
@@ -64,25 +37,17 @@ export async function editFolderAction(
   }
 
   try {
-    const url = new URL(`/api/directories/${id}`, baseUrl);
-    const response = await fetch(url.href, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-      body: JSON.stringify({ data }),
-    });
+    await mutateData('PUT', `/api/directories/${id}`, { data });
+    revalidateTag(fetchFoldersTag);
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+}
 
-    if (!response.ok) {
-      const d = await response.json();
-
-      let errorMessage = 'Unexpected error editing a folder';
-      if (d.error) {
-        errorMessage = `${d.error.name}: ${d.error.message}`;
-      }
-      throw new Error(errorMessage);
-    }
+export async function deleteFolderAction(id: number) {
+  try {
+    await mutateData('DELETE', `/api/directories/${id}`);
     revalidateTag(fetchFoldersTag);
   } catch (error) {
     console.error(error);

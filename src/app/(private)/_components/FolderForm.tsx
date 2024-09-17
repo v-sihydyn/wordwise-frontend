@@ -1,4 +1,3 @@
-'use client';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { folderFormSchema } from '@/schema/folderFormSchema';
@@ -9,6 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { DialogClose } from '@/components/ui/Dialog';
 import { createFolderAction, editFolderAction } from '@/app/(private)/actions';
 import { Folder } from '@/types/Folder';
+import { useToast } from '@/hooks/use-toast';
 
 type Props = {
   folder?: Folder;
@@ -22,14 +22,17 @@ export const FolderForm = ({ folder, onSuccess }: Props) => {
       name: folder?.attributes?.name ?? '',
     },
   });
+  const { toast } = useToast();
 
   const onSubmit = async (values: z.infer<typeof folderFormSchema>) => {
     const action = folder?.id ? editFolderAction.bind(null, folder.id) : createFolderAction;
     const data = await action(values);
 
     if (data?.error) {
-      form.setError('root', {
-        message: 'There was an error saving your event',
+      toast({
+        title: 'There was an error saving folder',
+        duration: 5000,
+        variant: 'destructive',
       });
     } else {
       onSuccess();
@@ -39,9 +42,6 @@ export const FolderForm = ({ folder, onSuccess }: Props) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
-        {form.formState.errors.root && (
-          <div className="text-sm text-destructive">{form.formState.errors.root.message}</div>
-        )}
         <FormField
           control={form.control}
           name="name"

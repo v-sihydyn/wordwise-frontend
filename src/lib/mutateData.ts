@@ -7,20 +7,26 @@ export async function mutateData<T>(method: string, path: string, payload?: T) {
 
   if (!authToken) throw new Error('No auth token found');
 
-  try {
-    const url = new URL(path, baseUrl);
-    const response = await fetch(url, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-      body: JSON.stringify(payload),
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log('error', error);
-    throw error;
+  const url = new URL(path, baseUrl);
+  const response = await fetch(url, {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const d = await response.json();
+
+    let errorMessage = 'Unexpected error creating a folder';
+    if (d.error) {
+      errorMessage = `${d.error.name}: ${d.error.message}`;
+    }
+    throw new Error(errorMessage);
   }
+
+  const data = await response.json();
+  return data as T;
 }

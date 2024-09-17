@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 };
 
 export function SignupForm() {
-  const [formState, formAction] = useFormState(registerUserAction, INITIAL_STATE);
+  const [formState, formAction] = useFormState<any, any>(registerUserAction, INITIAL_STATE);
 
   return (
     <div className="w-full max-w-md">
@@ -51,7 +51,7 @@ export function SignupForm() {
         </Card>
         <div className="mt-4 text-center text-sm">
           Have an account?
-          <Link className="ml-2 underline" href="signin">
+          <Link className="ml-2 underline" href="/sign-in">
             Sing In
           </Link>
         </div>

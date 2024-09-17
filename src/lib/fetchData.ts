@@ -12,7 +12,7 @@ export async function fetchData<T>(url: string, nextOptions?: NextFetchRequestCo
   };
 
   if (authToken) {
-    options.headers['Authorization'] = `Bearer ${authToken}`;
+    (options.headers as Record<string, string>).Authorization = `Bearer ${authToken}`;
   }
 
   if (nextOptions) {
