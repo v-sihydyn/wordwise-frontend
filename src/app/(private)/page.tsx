@@ -33,7 +33,7 @@ export default function Home() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">Lexemes by letter</CardTitle>
+              <CardTitle className="text-xl">Terms by letter</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-3 lg:grid-cols-5">

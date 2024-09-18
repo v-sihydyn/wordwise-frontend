@@ -2,8 +2,6 @@
 
 import { z } from 'zod';
 import { folderFormSchema } from '@/schema/folderFormSchema';
-import { getAuthToken } from '@/services/get-token';
-import { getStrapiURL } from '@/lib/utils';
 import { revalidateTag } from 'next/cache';
 import { fetchFoldersTag } from '@/app/(private)/api';
 import { mutateData } from '@/lib/mutateData';
