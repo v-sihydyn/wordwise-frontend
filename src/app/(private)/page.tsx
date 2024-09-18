@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { fetchFolders } from '@/app/(private)/api';
 import { CreateFolderButton } from '@/app/(private)/_components/CreateFolderButton';
 import { FoldersList } from '@/app/(private)/_components/FoldersList';
+import { Suspense } from 'react';
+import { FoldersListSkeleton } from '@/app/(private)/_components/FoldersListSkeleton';
 
 export const metadata = {
   title: 'WordWise',
@@ -12,10 +14,7 @@ export const metadata = {
 
 export const revalidate = 0;
 
-export default async function Home() {
-  const foldersData = await fetchFolders();
-  const folders = foldersData?.data ?? [];
-
+export default function Home() {
   return (
     <BasePageTemplate header={<Header />}>
       <div className="container mx-auto flex flex-1 justify-center p-6">
@@ -26,7 +25,9 @@ export default async function Home() {
               <CreateFolderButton />
             </CardHeader>
             <CardContent>
-              <FoldersList folders={folders} />
+              <Suspense fallback={<FoldersListSkeleton />}>
+                <FoldersWidget />
+              </Suspense>
             </CardContent>
           </Card>
 
@@ -55,3 +56,10 @@ export default async function Home() {
 }
 
 const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+
+async function FoldersWidget() {
+  const foldersData = await fetchFolders();
+  const folders = foldersData?.data ?? [];
+
+  return <FoldersList folders={folders} />;
+}

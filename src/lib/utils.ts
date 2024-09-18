@@ -63,3 +63,7 @@ export function getStrapiMedia(url: string | null) {
   if (url.startsWith('http') || url.startsWith('//')) return url;
   return `${getStrapiURL()}${url}`;
 }
+
+export function wait(delay: number) {
+  return new Promise((resolve) => setTimeout(resolve, delay));
+}
