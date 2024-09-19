@@ -10,7 +10,7 @@ export const CreateFolderButton = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild={true} onClick={() => setOpen(true)}>
-        <Button variant="outline">Create new folder</Button>
+        <Button variant="outline">New folder</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]" onInteractOutside={(e) => e.preventDefault()}>
         <DialogHeader>

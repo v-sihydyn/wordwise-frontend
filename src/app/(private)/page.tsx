@@ -21,7 +21,7 @@ export default function Home() {
         <div className="layout-content-container flex flex-1 flex-col gap-6">
           <Card>
             <CardHeader className="flex-row justify-between gap-2">
-              <CardTitle className="text-xl">Folders</CardTitle>
+              <CardTitle className="text-2xl">Folders</CardTitle>
               <CreateFolderButton />
             </CardHeader>
             <CardContent>
@@ -33,7 +33,7 @@ export default function Home() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">Terms by letter</CardTitle>
+              <CardTitle className="text-2xl">Terms by letter</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-3 lg:grid-cols-5">

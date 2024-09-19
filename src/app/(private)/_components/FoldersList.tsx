@@ -31,6 +31,7 @@ export const FoldersList = ({ folders }: { folders: Folder[] }) => {
         {folders.map((f, i) => (
           <FolderListItem
             key={i}
+            id={f.id!}
             name={f.attributes?.name ?? ''}
             onTriggerEdit={() => {
               setFolderForEdit(f);
