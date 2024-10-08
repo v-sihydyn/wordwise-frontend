@@ -2,14 +2,15 @@ import { Header } from '@/components/Header/Header';
 import { BasePageTemplate } from '@/templates/BasePageTemplate';
 import { Folder, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { fetchOneFolder } from '@/app/(private)/folder/[id]/api';
+import { fetchOneFolder } from '@/app/(private)/folders/[folderId]/api';
 import { Input } from '@/components/ui/Input';
 
-import { TermsList } from '@/app/(private)/folder/[id]/_components/TermsList';
+import { TermsList } from '@/app/(private)/folders/[folderId]/_components/TermsList';
 import { fetchTermsByFolder } from '@/app/(private)/api';
+import Link from 'next/link';
 
-export default function Page({ params }: { params: { id: string } }) {
-  const folderId = Number(params.id);
+export default function Page({ params }: { params: { folderId: string } }) {
+  const folderId = Number(params.folderId);
 
   return (
     <BasePageTemplate header={<Header />}>
@@ -101,8 +102,9 @@ async function FolderDetailsPageHeader({ id }: { id: number }) {
     <div className="page-header flex items-center">
       <Folder width={32} height={32} className="mr-2" />
       <h3 className="text-2xl font-semibold leading-none tracking-tight">{folder.attributes?.name}</h3>
-      <Button variant="outline" className="ml-auto">
-        New term
+
+      <Button variant="outline" className="ml-auto" asChild={true}>
+        <Link href={`/folders/${id}/terms/new`}>New term</Link>
       </Button>
     </div>
   );
@@ -114,5 +116,5 @@ async function TermsWidget({ folderId }: { folderId: number }) {
 
   if (terms.length === 0) return <h3>No terms</h3>;
 
-  return <TermsList terms={terms} />;
+  return <TermsList terms={terms} folderId={folderId} />;
 }

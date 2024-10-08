@@ -3,8 +3,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { Term } from '@/types/Term';
+import React from 'react';
 
-export async function TermsList({ terms }: { terms: Term[] }) {
+export function TermsList({ terms, folderId }: { terms: Term[]; folderId: number }) {
   return (
     <div className="flex flex-col gap-0">
       {terms.map((t) => {
@@ -15,7 +16,9 @@ export async function TermsList({ terms }: { terms: Term[] }) {
         return (
           <div key={t.id} className="flex min-h-[72px] items-center justify-between gap-4 bg-[#111518] px-4 py-2">
             <div className="flex flex-col justify-center">
-              <p className="line-clamp-1 text-base font-medium leading-normal text-white">{t.attributes?.value}</p>
+              <Link href={`/folders/${folderId}/terms/${t.id}`}>
+                <p className="line-clamp-1 text-base font-medium leading-normal text-white">{t.attributes?.value}</p>
+              </Link>
               {firstMeaning ? (
                 <div className="flex">
                   <p className="line-clamp-2 text-base font-normal leading-normal text-[#9cacba]">

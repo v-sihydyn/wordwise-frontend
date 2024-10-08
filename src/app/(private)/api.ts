@@ -15,17 +15,29 @@ export const fetchFolders = async () => {
   }
 };
 
+export const fetchTermsByFolderTag = (folderId: number | string) => `terms-by-folder-${folderId}`;
 export const fetchTermsByFolder = async ({ folderId }: { folderId: number }) => {
   try {
     const query = qs.stringify({
-      populate: ['meanings', 'examples'],
-      filters: { directory: folderId },
+      populate: ['meanings'],
+      filters: {
+        directory: {
+          $eq: folderId,
+        },
+      },
+      pagination: {
+        page: 1,
+        pageSize: 10,
+      },
     });
+    console.log({ folderId });
     const baseUrl = getStrapiURL();
     const url = new URL('/api/terms', baseUrl);
     url.search = query;
 
-    return await fetchData<components['schemas']['TermListResponse']>(url.href);
+    return await fetchData<components['schemas']['TermListResponse']>(url.href, {
+      tags: [fetchTermsByFolderTag(folderId)],
+    });
   } catch (err) {
     console.error('Failed to fetch data: ', err);
   }

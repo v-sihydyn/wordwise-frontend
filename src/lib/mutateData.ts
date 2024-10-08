@@ -28,7 +28,7 @@ export async function mutateData<T>(method: string, path: string, payload?: T) {
   if (!response.ok) {
     const d = await response.json();
 
-    let errorMessage = 'Unexpected error creating a folder';
+    let errorMessage = 'Unexpected error';
 
     if (d.error) {
       errorMessage = `${d.error.name}: ${d.error.message}`;
@@ -36,6 +36,7 @@ export async function mutateData<T>(method: string, path: string, payload?: T) {
 
     if (isDebug()) {
       console.log(errorMessage);
+      console.log('raw error: ', JSON.stringify(d.error));
     }
 
     throw new Error(errorMessage);

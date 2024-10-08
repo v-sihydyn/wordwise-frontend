@@ -12,7 +12,7 @@ type Props = {
 
 export const FolderListItem = ({ name, onTriggerEdit, onTriggerDelete, id }: Props) => {
   return (
-    <Link href={`/folder/${id}`} className="flex justify-start gap-3 rounded-xl bg-secondary p-6 pl-4 pr-4">
+    <Link href={`/folders/${id}`} className="flex justify-start gap-3 rounded-xl bg-secondary p-6 pl-4 pr-4">
       <Folder className="flex-shrink-0" />
       <p className="text-lg font-medium leading-normal text-white">{name}</p>
       <DropdownMenu>
