@@ -4,7 +4,7 @@ import { fetchData } from '@/lib/fetchData';
 import { components } from '@/types/generated/schema';
 
 export const fetchTermsByFolderTag = (folderId: number | string) => `terms-by-folder-${folderId}`;
-export const fetchTermsByFolder = async ({ folderId }: { folderId: number }) => {
+export const fetchTermsByFolder = async ({ folderId, page }: { folderId: number; page: number }) => {
   try {
     const query = qs.stringify({
       populate: ['meanings'],
@@ -14,7 +14,7 @@ export const fetchTermsByFolder = async ({ folderId }: { folderId: number }) => 
         },
       },
       pagination: {
-        page: 1,
+        page,
         pageSize: 10,
       },
     });
