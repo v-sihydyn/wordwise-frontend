@@ -2,12 +2,12 @@ import { Header } from '@/components/Header/Header';
 import { BasePageTemplate } from '@/templates/BasePageTemplate';
 import { Folder, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { fetchOneFolder } from '@/app/(private)/folders/[folderId]/api';
 import { Input } from '@/components/ui/Input';
 
 import { TermsList } from '@/app/(private)/folders/[folderId]/_components/TermsList';
-import { fetchTermsByFolder } from '@/app/(private)/api';
 import Link from 'next/link';
+import { fetchOneFolder } from '@/api/folderApi';
+import { fetchTermsByFolder } from '@/api/termApi';
 
 export default function Page({ params }: { params: { folderId: string } }) {
   const folderId = Number(params.folderId);

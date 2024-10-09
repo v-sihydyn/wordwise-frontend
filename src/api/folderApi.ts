@@ -13,3 +13,14 @@ export const fetchOneFolder = async (id: number) => {
     console.error('Failed to fetch data: ', err);
   }
 };
+export const fetchFoldersTag = 'folders-list';
+export const fetchFolders = async () => {
+  try {
+    const baseUrl = getStrapiURL();
+    const url = new URL('/api/directories', baseUrl);
+
+    return await fetchData<components['schemas']['DirectoryListResponse']>(url.href, { tags: [fetchFoldersTag] });
+  } catch (err) {
+    console.error('Failed to fetch data: ', err);
+  }
+};

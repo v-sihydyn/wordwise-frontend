@@ -1,3 +1,3 @@
 export default function Page() {
-  return <div>Term details</div>;
+  return <div>Term view</div>;
 }

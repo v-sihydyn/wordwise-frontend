@@ -2,11 +2,11 @@ import { BasePageTemplate } from '@/templates/BasePageTemplate';
 import { Header } from '@/components/Header/Header';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { fetchFolders } from '@/app/(private)/api';
 import { CreateFolderButton } from '@/app/(private)/_components/CreateFolderButton';
 import { FoldersList } from '@/app/(private)/_components/FoldersList';
 import { Suspense } from 'react';
 import { FoldersListSkeleton } from '@/app/(private)/_components/FoldersListSkeleton';
+import { fetchFolders } from '@/api/folderApi';
 
 export const metadata = {
   title: 'WordWise',

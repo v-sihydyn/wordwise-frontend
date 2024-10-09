@@ -13,19 +13,21 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useToast } from '@/hooks/use-toast';
 import { termFormSchema } from '@/schema/termFormSchema';
-import { createTermAction } from '@/app/(private)/folders/[folderId]/terms/actions';
+import { createTermAction, editTermAction } from '@/app/(private)/folders/[folderId]/terms/actions';
+import { TermDetails } from '@/types/Term';
 
 type Props = {
   folderId: number;
+  term?: TermDetails;
 };
 
-export const TermForm = ({ folderId }: Props) => {
+export const TermForm = ({ folderId, term }: Props) => {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof termFormSchema>>({
     defaultValues: {
-      value: '',
-      meanings: [{ text: '' }],
-      examples: [],
+      value: term?.attributes?.value ?? '',
+      meanings: term?.attributes?.meanings ?? [{ text: '' }],
+      examples: term?.attributes?.examples ?? [],
       folderId,
     },
     resolver: zodResolver(termFormSchema),
@@ -52,7 +54,7 @@ export const TermForm = ({ folderId }: Props) => {
   });
 
   const onSubmit = async (values: z.infer<typeof termFormSchema>) => {
-    const action = createTermAction;
+    const action = term?.id ? editTermAction.bind(null, term.id) : createTermAction;
     const data = await action(values, folderId);
 
     if (data?.error) {
@@ -146,7 +148,7 @@ export const TermForm = ({ folderId }: Props) => {
           </CardContent>
         </Card>
 
-        <Button disabled={form.formState.isSubmitting} type="submit" className="w-full">
+        <Button disabled={!form.formState.isDirty || form.formState.isSubmitting} type="submit" className="w-full">
           Submit
         </Button>
       </form>

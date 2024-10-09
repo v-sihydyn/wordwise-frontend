@@ -2,10 +2,10 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/DropdownMenu';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
-import { Term } from '@/types/Term';
+import { TermListItem } from '@/types/Term';
 import React from 'react';
 
-export function TermsList({ terms, folderId }: { terms: Term[]; folderId: number }) {
+export function TermsList({ terms, folderId }: { terms: TermListItem[]; folderId: number }) {
   return (
     <div className="flex flex-col gap-0">
       {terms.map((t) => {
@@ -58,7 +58,7 @@ export function TermsList({ terms, folderId }: { terms: Term[]; folderId: number
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
                 <DropdownMenuItem asChild={true}>
-                  <Link href={`/folders/${'1'}/terms/${'2'}/edit`}>Edit</Link>
+                  <Link href={`/folders/${folderId}/terms/${t.id}/edit`}>Edit</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => {}} className="cursor-pointer text-red-800">
                   Delete
