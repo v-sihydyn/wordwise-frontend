@@ -58,3 +58,13 @@ export async function editTermAction(id: number, unsafeData: z.infer<typeof term
 
   redirect(`/folders/${folderId}`);
 }
+
+export async function deleteTermAction(id: number, folderId: number) {
+  try {
+    await mutateData('DELETE', `/api/terms/${id}`);
+    revalidateTag(fetchTermsByFolderTag(folderId));
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+}

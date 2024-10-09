@@ -3,9 +3,26 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 import { TermListItem } from '@/types/Term';
-import React from 'react';
+import React, { useState, useTransition } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/AlertDialog';
+import { deleteTermAction } from '@/app/(private)/folders/[folderId]/terms/termActions';
 
 export function TermsList({ terms, folderId }: { terms: TermListItem[]; folderId: number }) {
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [termIdForDelete, setTermIdForDelete] = useState<number | undefined>();
+  const [isDeletePending, startDeleteTransition] = useTransition();
+  const { toast } = useToast();
+
   return (
     <div className="flex flex-col gap-0">
       {terms.map((t) => {
@@ -60,7 +77,13 @@ export function TermsList({ terms, folderId }: { terms: TermListItem[]; folderId
                 <DropdownMenuItem asChild={true}>
                   <Link href={`/folders/${folderId}/terms/${t.id}/edit`}>Edit</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => {}} className="cursor-pointer text-red-800">
+                <DropdownMenuItem
+                  onClick={() => {
+                    setTermIdForDelete(t.id);
+                    setDeleteModalOpen(true);
+                  }}
+                  className="cursor-pointer text-red-800"
+                >
                   Delete
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -68,6 +91,52 @@ export function TermsList({ terms, folderId }: { terms: TermListItem[]; folderId
           </div>
         );
       })}
+
+      <AlertDialog
+        open={deleteModalOpen}
+        onOpenChange={(value) => {
+          if (!value) {
+            setTermIdForDelete(undefined);
+          }
+
+          setDeleteModalOpen(value);
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete this term.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              disabled={isDeletePending}
+              onClick={() => {
+                startDeleteTransition(() => {
+                  if (!termIdForDelete) return;
+
+                  deleteTermAction(termIdForDelete, folderId).then((data) => {
+                    if (data?.error) {
+                      toast({
+                        title: 'There was an error deleting term',
+                        duration: 5000,
+                        variant: 'destructive',
+                      });
+                    }
+
+                    setTermIdForDelete(undefined);
+                    setDeleteModalOpen(false);
+                  });
+                });
+              }}
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

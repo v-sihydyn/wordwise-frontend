@@ -13,7 +13,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useToast } from '@/hooks/use-toast';
 import { termFormSchema } from '@/schema/termFormSchema';
-import { createTermAction, editTermAction } from '@/app/(private)/folders/[folderId]/terms/actions';
+import { createTermAction, editTermAction } from '@/app/(private)/folders/[folderId]/terms/termActions';
 import { TermDetails } from '@/types/Term';
 
 type Props = {

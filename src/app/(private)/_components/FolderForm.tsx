@@ -6,7 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { DialogClose } from '@/components/ui/Dialog';
-import { createFolderAction, editFolderAction } from '@/app/(private)/actions';
+import { createFolderAction, editFolderAction } from '@/app/(private)/folderActions';
 import { Folder } from '@/types/Folder';
 import { useToast } from '@/hooks/use-toast';
 

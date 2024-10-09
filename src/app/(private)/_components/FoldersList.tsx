@@ -14,7 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/AlertDialog';
-import { deleteFolderAction } from '@/app/(private)/actions';
+import { deleteFolderAction } from '@/app/(private)/folderActions';
 import { useToast } from '@/hooks/use-toast';
 
 export const FoldersList = ({ folders }: { folders: Folder[] }) => {
