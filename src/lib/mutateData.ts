@@ -1,6 +1,7 @@
 import { getStrapiURL } from '@/lib/utils';
 import { getAuthToken } from '@/services/get-token';
 import { isDebug } from '@/config/isDebug';
+import { wait } from '@/utils/wait';
 
 export async function mutateData<T>(method: string, path: string, payload?: T) {
   const baseUrl = getStrapiURL();
@@ -22,6 +23,9 @@ export async function mutateData<T>(method: string, path: string, payload?: T) {
     console.group(`${options.method} ${path}`);
     console.log(JSON.stringify(payload, null, 2));
   }
+
+  // @TODO: remove delay
+  await wait(300);
 
   const response = await fetch(url, options);
 

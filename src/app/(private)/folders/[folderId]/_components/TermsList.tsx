@@ -24,7 +24,7 @@ export function TermsList({ terms, folderId }: { terms: TermListItem[]; folderId
   const { toast } = useToast();
 
   return (
-    <div className="flex flex-col gap-0">
+    <div className="flex flex-col gap-2">
       {terms.map((t) => {
         const meanings = t.attributes?.meanings ?? [];
         const firstMeaning = meanings[0];

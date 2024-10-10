@@ -1,6 +1,7 @@
 'use server';
 import { getAuthToken } from '@/services/get-token';
 import { isDebug } from '@/config/isDebug';
+import { wait } from '@/utils/wait';
 
 export async function fetchData<T>(url: string, nextOptions?: NextFetchRequestConfig) {
   const authToken = await getAuthToken();
@@ -23,6 +24,9 @@ export async function fetchData<T>(url: string, nextOptions?: NextFetchRequestCo
   if (isDebug()) {
     console.group(`${options.method} ${url}`);
   }
+
+  // @TODO: remove delay
+  await wait(300);
 
   const response = await fetch(url, options);
 

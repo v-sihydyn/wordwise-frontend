@@ -13,7 +13,7 @@ export default function Page({ params }: { params: { folderId: string; termId: s
       <div className="container mx-auto flex flex-1 justify-center p-6">
         <div className="layout-content-container flex flex-1 flex-col gap-6">
           <Suspense>
-            <TermView folderId={folderId} termId={termId} />
+            <TermEditView folderId={folderId} termId={termId} />
           </Suspense>
         </div>
       </div>
@@ -21,7 +21,7 @@ export default function Page({ params }: { params: { folderId: string; termId: s
   );
 }
 
-async function TermView({ folderId, termId }: { folderId: number; termId: number }) {
+async function TermEditView({ folderId, termId }: { folderId: number; termId: number }) {
   const termData = await fetchOneTerm(termId);
   const term = termData?.data;
 

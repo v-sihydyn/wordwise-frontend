@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Folder } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/DropdownMenu';
 import { Button } from '@/components/ui/Button';
+import React from 'react';
 
 type Props = {
   name: string;
@@ -40,10 +41,22 @@ export const FolderListItem = ({ name, onTriggerEdit, onTriggerDelete, id }: Pro
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
-          <DropdownMenuItem onClick={onTriggerEdit} className="cursor-pointer">
+          <DropdownMenuItem
+            onClick={(e: React.SyntheticEvent) => {
+              e.stopPropagation();
+              onTriggerEdit();
+            }}
+            className="cursor-pointer"
+          >
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={onTriggerDelete} className="cursor-pointer text-red-800">
+          <DropdownMenuItem
+            onClick={(e: React.SyntheticEvent) => {
+              e.stopPropagation();
+              onTriggerDelete();
+            }}
+            className="cursor-pointer text-red-800"
+          >
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

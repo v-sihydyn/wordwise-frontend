@@ -12,8 +12,6 @@ export const metadata = {
   title: 'WordWise',
 };
 
-export const revalidate = 0;
-
 export default function Home() {
   return (
     <BasePageTemplate header={<Header />}>
