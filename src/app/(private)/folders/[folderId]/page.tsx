@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { fetchOneFolder } from '@/api/folderApi';
 import { fetchTermsByFolder } from '@/api/termApi';
 import Paginator from '@/components/ui/Pagination/Paginator';
+import { TermsSearchBar } from '@/app/(private)/folders/[folderId]/_components/TermsSearchBar';
 
 export default function Page({
   params,
@@ -17,10 +18,12 @@ export default function Page({
   params: { folderId: string };
   searchParams?: {
     page?: string;
+    q?: string;
   };
 }) {
   const folderId = Number(params.folderId);
   const currentPage = Number(searchParams?.page) || 1;
+  const q = searchParams?.q || '';
 
   return (
     <BasePageTemplate header={<Header />}>
@@ -32,7 +35,7 @@ export default function Page({
           </div>
           <div className="">
             {/* @TODO: loading state */}
-            <TermsWidget folderId={folderId} currentPage={currentPage} />
+            <TermsWidget folderId={folderId} currentPage={currentPage} searchQuery={q} />
           </div>
         </div>
       </div>
@@ -56,29 +59,32 @@ async function FolderDetailsPageHeader({ id }: { id: number }) {
   );
 }
 
-async function TermsWidget({ folderId, currentPage }: { folderId: number; currentPage: number }) {
-  const termsData = await fetchTermsByFolder({ folderId, page: currentPage });
+async function TermsWidget({
+  folderId,
+  currentPage,
+  searchQuery,
+}: {
+  folderId: number;
+  currentPage: number;
+  searchQuery: string;
+}) {
+  const termsData = await fetchTermsByFolder({ folderId, page: currentPage, searchQuery });
   const terms = termsData?.data ?? [];
   const meta = termsData?.meta;
   const totalPages = meta?.pagination?.pageCount ?? 0;
 
-  if (terms.length === 0) return <h3>No terms</h3>;
-
   return (
     <div className="page-content flex flex-col gap-6">
-      <div className="flex w-full items-center space-x-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 pl-8 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-            placeholder="Search terms"
-          />
-        </div>
-        <Button type="submit">Search</Button>
-      </div>
-      <TermsList terms={terms} folderId={folderId} />
+      <TermsSearchBar />
+      {terms.length > 0 ? (
+        <>
+          <TermsList terms={terms} folderId={folderId} searchQuery={searchQuery} />
 
-      <Paginator currentPage={currentPage} totalPages={totalPages} showPreviousNext={true} />
+          <Paginator currentPage={currentPage} totalPages={totalPages} showPreviousNext={true} />
+        </>
+      ) : (
+        <h3>No terms</h3>
+      )}
     </div>
   );
 }

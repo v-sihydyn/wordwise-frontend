@@ -16,8 +16,17 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/AlertDialog';
 import { deleteTermAction } from '@/app/(private)/folders/[folderId]/terms/termActions';
+import { HighlightText } from '@/components/HighlightText/HighlightText';
 
-export function TermsList({ terms, folderId }: { terms: TermListItem[]; folderId: number }) {
+export function TermsList({
+  terms,
+  folderId,
+  searchQuery,
+}: {
+  terms: TermListItem[];
+  folderId: number;
+  searchQuery: string;
+}) {
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [termIdForDelete, setTermIdForDelete] = useState<number | undefined>();
   const [isDeletePending, startDeleteTransition] = useTransition();
@@ -34,7 +43,9 @@ export function TermsList({ terms, folderId }: { terms: TermListItem[]; folderId
           <div key={t.id} className="flex min-h-[72px] items-center justify-between gap-4 bg-[#111518] px-4 py-2">
             <div className="flex flex-col justify-center">
               <Link href={`/folders/${folderId}/terms/${t.id}`}>
-                <p className="line-clamp-1 text-base font-medium leading-normal text-white">{t.attributes?.value}</p>
+                <p className="line-clamp-1 text-base font-medium leading-normal text-white">
+                  <HighlightText text={t.attributes?.value ?? ''} searchTerm={searchQuery} />
+                </p>
               </Link>
               {firstMeaning ? (
                 <div className="flex">

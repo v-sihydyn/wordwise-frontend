@@ -3,6 +3,8 @@ import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { ButtonProps } from '@/components/ui/Button';
+import Link, { LinkProps } from 'next/link';
+import { PropsWithChildren } from 'react';
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -25,25 +27,24 @@ const PaginationItem = React.forwardRef<HTMLLIElement, React.ComponentProps<'li'
 ));
 PaginationItem.displayName = 'PaginationItem';
 
-type PaginationLinkProps = {
-  isActive?: boolean;
-  disabled?: boolean;
-} & Pick<ButtonProps, 'size'> &
-  React.ComponentProps<'a'>;
+type PaginationLinkProps = PropsWithChildren<
+  {
+    isActive?: boolean;
+    disabled?: boolean;
+    className?: string;
+  } & Pick<ButtonProps, 'size'> &
+    LinkProps
+>;
 
 const PaginationLink = ({ className, isActive, disabled = false, ...props }: PaginationLinkProps) => (
   <PaginationItem>
-    <a
+    <Link
       aria-current={isActive ? 'page' : undefined}
       role="link"
       aria-disabled={disabled}
       className={cn(
         'flex size-10 items-center justify-center rounded-full text-sm font-bold leading-normal tracking-[0.015em] text-white',
         isActive && 'bg-[#283139]',
-        // buttonVariants({
-        //   // variant: isActive ? 'default' : 'ghost',
-        //   size,
-        // }),
         disabled && 'pointer-events-none cursor-not-allowed',
         className
       )}

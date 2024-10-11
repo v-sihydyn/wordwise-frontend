@@ -4,20 +4,36 @@ import { fetchData } from '@/lib/fetchData';
 import { components } from '@/types/generated/schema';
 
 export const fetchTermsByFolderTag = (folderId: number | string) => `terms-by-folder-${folderId}`;
-export const fetchTermsByFolder = async ({ folderId, page }: { folderId: number; page: number }) => {
+export const fetchTermsByFolder = async ({
+  folderId,
+  page,
+  searchQuery,
+}: {
+  folderId: number;
+  page: number;
+  searchQuery: string;
+}) => {
+  const params: Record<string, any> = {
+    populate: ['meanings'],
+    filters: {
+      directory: {
+        $eq: folderId,
+      },
+    },
+    pagination: {
+      page,
+      pageSize: 2,
+    },
+  };
+
+  if (searchQuery) {
+    params.filters.value = {
+      $contains: searchQuery,
+    };
+  }
+
   try {
-    const query = qs.stringify({
-      populate: ['meanings'],
-      filters: {
-        directory: {
-          $eq: folderId,
-        },
-      },
-      pagination: {
-        page,
-        pageSize: 10,
-      },
-    });
+    const query = qs.stringify(params);
     const baseUrl = getStrapiURL();
     const url = new URL('/api/terms', baseUrl);
     url.search = query;
