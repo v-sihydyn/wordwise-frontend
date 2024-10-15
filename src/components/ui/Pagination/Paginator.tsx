@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Pagination,
   PaginationContent,
@@ -13,9 +11,10 @@ type PaginatorProps = {
   currentPage: number;
   totalPages: number;
   showPreviousNext: boolean;
+  onPageChange: (page: number) => void;
 };
 
-export default function Paginator({ currentPage, totalPages, showPreviousNext }: PaginatorProps) {
+export default function Paginator({ currentPage, totalPages, showPreviousNext, onPageChange }: PaginatorProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -33,11 +32,19 @@ export default function Paginator({ currentPage, totalPages, showPreviousNext }:
     <Pagination>
       <PaginationContent>
         {showPreviousNext && totalPages ? (
-          <PaginationPrevious href={createPathUrl(currentPage - 1)} disabled={currentPage - 1 < 1} />
+          <PaginationPrevious
+            onClick={() => onPageChange(currentPage - 1)}
+            href={createPathUrl(currentPage - 1)}
+            disabled={currentPage - 1 < 1}
+          />
         ) : null}
-        {generatePaginationLinks(currentPage, totalPages, createPathUrl)}
+        {generatePaginationLinks(currentPage, totalPages, onPageChange, createPathUrl)}
         {showPreviousNext && totalPages ? (
-          <PaginationNext href={createPathUrl(currentPage + 1)} disabled={currentPage > totalPages - 1} />
+          <PaginationNext
+            onClick={() => onPageChange(currentPage + 1)}
+            href={createPathUrl(currentPage + 1)}
+            disabled={currentPage > totalPages - 1}
+          />
         ) : null}
       </PaginationContent>
     </Pagination>
