@@ -151,3 +151,16 @@ export function TermsList({
     </div>
   );
 }
+
+const Skeleton = () => (
+  <div className="flex flex-col gap-2">
+    {Array.from({ length: 6 }).map((_, i) => (
+      <div
+        key={i}
+        className="flex min-h-[72px] animate-pulse items-center justify-between gap-4 bg-[#111518] px-4 py-2"
+      ></div>
+    ))}
+  </div>
+);
+
+TermsList.Skeleton = Skeleton;

@@ -101,11 +101,14 @@ export function TermsWidget({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             name="q"
+            disabled={isPending}
           />
         </div>
-        <Button type="submit">Search</Button>
+        <Button type="submit" disabled={isPending}>
+          Search
+        </Button>
       </form>
-      {isPending ? 'Client loading...' : list}
+      {isPending ? <TermsList.Skeleton /> : list}
     </>
   );
 }
